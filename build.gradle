@@ -76,8 +76,8 @@ dependencies {
 
 	implementation "com.github.electronstudio:sdl2gdx:1.0.3"
 	includeInJar "com.github.electronstudio:sdl2gdx:1.0.3"
-	implementation "net.dv8tion:JDA:5.0.0-beta.13"
-	includeInJar "net.dv8tion:JDA:5.0.0-beta.13"
+	implementation "net.dv8tion:JDA:5.0.0-beta.16"
+	includeInJar "net.dv8tion:JDA:5.0.0-beta.16"
 	implementation "club.minnced:discord-webhooks:0.8.4"
 	includeInJar "club.minnced:discord-webhooks:0.8.4"
 	includeInJar "com.google.code.gson:gson:2.8.9"

@@ -31,9 +31,34 @@ public class DiscordChatRelay {
             return;
         }
 
+        if (author.length() >= 2 && author.charAt(0) == '§') {
+            author = author.substring(2);
+        }
+
         WebhookMessageBuilder builder = new WebhookMessageBuilder();
         builder.setUsername(author);
         builder.setAvatarUrl("https://visage.surgeplay.com/face/256/"+author);
+        builder.setContent(message);
+        webhook.send(builder.build());
+    }
+
+    public static void sendToDiscord(String author, String message, String avatarUrl) {
+        if (DiscordClient.jda == null) {
+            return;
+        }
+
+        JDAWebhookClient webhook = DiscordClient.getWebhook();
+        if (webhook == null) {
+            return;
+        }
+
+        if (author.length() >= 2 && author.charAt(0) == '§') {
+            author = author.substring(2);
+        }
+
+        WebhookMessageBuilder builder = new WebhookMessageBuilder();
+        builder.setUsername(author);
+        builder.setAvatarUrl(avatarUrl);
         builder.setContent(message);
         webhook.send(builder.build());
     }

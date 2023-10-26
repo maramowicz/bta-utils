@@ -19,6 +19,7 @@ public class BtaUtilsConfig {
     public static boolean discord_enable = false;
     public static String discord_token = "SUPER SECRET TOKEN";
     public static String discord_channel = "CHANNEL ID";
+    public static boolean discord_replace_messages = false;
 
     public static void load() {
         File file = getFilePath();
@@ -83,6 +84,7 @@ public class BtaUtilsConfig {
             discord_enable = get(discord, "enable", discord_enable);
             discord_token = get(discord, "token", discord_token);
             discord_channel = get(discord, "channel", discord_channel);
+            discord_replace_messages = get(discord, "replace_users_messages", discord_replace_messages);
             object.add("discord", discord);
         }
     }
@@ -95,6 +97,7 @@ public class BtaUtilsConfig {
         BtaUtilsMod.info("use_sdl = " + useSdl);
         BtaUtilsMod.info("disable_trample = " + disableTrample);
         BtaUtilsMod.info("discord.enable = " + discord_enable);
+        BtaUtilsMod.info("discord.replace_users_messages = " + discord_replace_messages);
     }
 
     static {

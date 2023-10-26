@@ -23,7 +23,11 @@ public class Mixin_NetLoginHandler {
             locals = LocalCapture.CAPTURE_FAILHARD
     )
     void sendLoginMessage(Packet1Login packet1login, CallbackInfo ci, EntityPlayerMP player) {
-        String username = player.getDisplayName().replaceFirst("^§0", "");
+        String username = player.getDisplayName();
+
+        if (username.length() >= 2 && username.charAt(0) == '§') {
+            username = username.substring(2);
+        }
         DiscordChatRelay.sendJoinLeaveMessage(username, true);
     }
 }

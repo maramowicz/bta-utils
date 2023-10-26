@@ -30,7 +30,7 @@ public class Mixin_NetServerHandler {
             return message;
         }
 
-        String username = playerEntity.getDisplayName().replaceFirst("^§0", "");
+        String username = playerEntity.getDisplayName();
 
         DiscordChatRelay.sendToDiscord(username, message);
 
@@ -42,7 +42,11 @@ public class Mixin_NetServerHandler {
             at = @At("HEAD")
     )
     void sendLogoutMessage(String s, Object[] aobj, CallbackInfo ci) {
-        String username = playerEntity.getDisplayName().replaceFirst("^§0", "");
+        String username = playerEntity.getDisplayName();
+
+        if (username.length() >= 2 && username.charAt(0) == '§') {
+            username = username.substring(2);
+        }
         DiscordChatRelay.sendJoinLeaveMessage(username, false);
     }
 }

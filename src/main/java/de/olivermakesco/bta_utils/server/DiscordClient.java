@@ -116,6 +116,11 @@ public class DiscordClient {
                 String username = getDisplayName(user, member);
                 String content = ChatEmotes.process(message.getMessage().getContentStripped());
 
+                if (BtaUtilsConfig.discord_replace_messages) {
+                    DiscordChatRelay.sendToDiscord(username, content, user.getAvatarUrl());
+                    message.getMessage().delete().queue();
+                }
+
                 DiscordChatRelay.sendToMinecraft(username, content);
             }
         }
