@@ -15,6 +15,13 @@ loom {
 	gluedMinecraftJar()
 	noIntermediateMappings()
 	customMinecraftManifest.set("https://github.com/Turnip-Labs/bta-manifest-repo/releases/download/v${project.bta_version}/${project.bta_version}.json")
+	runs {
+		client {
+			// Needed for https://github.com/FabricMC/fabric-loader/issues/712
+			// Thanks for https://github.com/AntiquityMC/ClassicExampleMod for fix
+			property 'fabric.gameVersion', "${project.bta_version}"
+		}
+	}
 }
 
 repositories {
@@ -104,13 +111,13 @@ dependencies {
 }
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_1_8
-	targetCompatibility = JavaVersion.VERSION_1_8
+	sourceCompatibility = JavaVersion.VERSION_17
+	targetCompatibility = JavaVersion.VERSION_17
 	withSourcesJar()
 }
 
 tasks.withType(JavaCompile) {
-	options.release.set 8
+	options.release.set 17
 }
 
 jar {
