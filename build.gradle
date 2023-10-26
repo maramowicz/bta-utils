@@ -16,9 +16,12 @@ loom {
 	noIntermediateMappings()
 	customMinecraftManifest.set("https://github.com/Turnip-Labs/bta-manifest-repo/releases/download/v${project.bta_version}/${project.bta_version}.json")
 	runs {
+		// Needed for https://github.com/FabricMC/fabric-loader/issues/712
+		// Thanks for https://github.com/AntiquityMC/ClassicExampleMod for fix
 		client {
-			// Needed for https://github.com/FabricMC/fabric-loader/issues/712
-			// Thanks for https://github.com/AntiquityMC/ClassicExampleMod for fix
+			property 'fabric.gameVersion', "${project.bta_version}"
+		}
+		server {
 			property 'fabric.gameVersion', "${project.bta_version}"
 		}
 	}
