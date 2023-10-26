@@ -7,7 +7,8 @@
     "core.Mixin_BlockFarmland",
     "server.Mixin_EntityPlayerMP",
     "server.Mixin_NetLoginHandler",
-    "server.Mixin_NetServerHandler"
+    "server.Mixin_NetServerHandler",
+    "server.Mixin_MinecraftServer"
   ],
   "client": [
     "client.Mixin_ControllerInput",

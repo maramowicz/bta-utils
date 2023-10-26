@@ -20,6 +20,9 @@ public class BtaUtilsConfig {
     public static String discord_token = "SUPER SECRET TOKEN";
     public static String discord_channel = "CHANNEL ID";
     public static boolean discord_replace_messages = false;
+    public static String discord_status = "Server running!";
+    public static String discord_message_started = "**Server Started**";
+    public static String discord_message_stopped = "**Server Stopped**";
 
     public static void load() {
         File file = getFilePath();
@@ -85,6 +88,10 @@ public class BtaUtilsConfig {
             discord_token = get(discord, "token", discord_token);
             discord_channel = get(discord, "channel", discord_channel);
             discord_replace_messages = get(discord, "replace_users_messages", discord_replace_messages);
+            discord_status = get(discord, "discord_status", discord_status);
+            discord_message_started = get(discord, "message_started", discord_message_started);
+            discord_message_stopped = get(discord, "message_stopped", discord_message_stopped);
+
             object.add("discord", discord);
         }
     }

@@ -1,5 +1,6 @@
 package de.olivermakesco.bta_utils.mixin.server;
 
+import de.olivermakesco.bta_utils.config.BtaUtilsConfig;
 import de.olivermakesco.bta_utils.server.DiscordChatRelay;
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,6 +15,6 @@ public class Mixin_MinecraftServer {
             at = @At("RETURN")
     )
     void sendStopMessage(CallbackInfo ci) {
-        DiscordChatRelay.sendMessageAsBot("**Server stopped.**");
+        DiscordChatRelay.sendMessageAsBot(BtaUtilsConfig.discord_message_stopped);
     }
 }

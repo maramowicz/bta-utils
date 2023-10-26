@@ -1,5 +1,6 @@
 package de.olivermakesco.bta_utils;
 
+import de.olivermakesco.bta_utils.config.BtaUtilsConfig;
 import de.olivermakesco.bta_utils.server.DiscordChatRelay;
 import de.olivermakesco.bta_utils.server.DiscordClient;
 import net.fabricmc.api.ModInitializer;
@@ -13,7 +14,7 @@ public class BtaUtilsMod implements ModInitializer {
     public void onInitialize() {
         new Thread(() -> {
             if (DiscordClient.init()) {
-                DiscordChatRelay.sendMessageAsBot("**Server Started**");
+                DiscordChatRelay.sendMessageAsBot(BtaUtilsConfig.discord_message_started);
             }
         }).start();
     }
