@@ -15,6 +15,7 @@ public class Mixin_MinecraftServer {
             at = @At("RETURN")
     )
     void sendStopMessage(CallbackInfo ci) {
+        if (!BtaUtilsConfig.discord_message_stopped.equals("")) 
         DiscordChatRelay.sendMessageAsBot(BtaUtilsConfig.discord_message_stopped);
     }
 }
