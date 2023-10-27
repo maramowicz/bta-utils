@@ -19,7 +19,7 @@ public class BtaUtilsMod implements ModInitializer {
                 DiscordChatRelay.sendMessageAsBot(BtaUtilsConfig.discord_message_started);
                 DiscordSlashHandler.initCommands(DiscordClient.jda);
                 DiscordClient.jda.addEventListener(new DiscordSlashHandler());
-            }
+           }
         }).start();
     }
 
