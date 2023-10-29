@@ -38,6 +38,9 @@ repositories {
 		name = 'Fabric'
 		url = 'https://maven.fabricmc.net/'
 	}
+	maven {
+        url 'https://jitpack.io'
+    }
 	ivy {
 		url = "https://github.com/Better-than-Adventure"
 		patternLayout {
@@ -111,6 +114,8 @@ dependencies {
 	implementation("org.apache.logging.log4j:log4j-core:${log4jVersion}")
 	implementation("org.apache.logging.log4j:log4j-api:${log4jVersion}")
 	implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion}")
+
+    implementation group: 'com.github.micycle1', name: 'processing-core-4', version: 'latest.integration'
 }
 
 java {

@@ -1,5 +1,6 @@
 package de.olivermakesco.bta_utils.mixin.server;
 
+import de.olivermakesco.bta_utils.server.MinecraftDConnect;
 import de.olivermakesco.bta_utils.server.MinecraftPingHandler;
 import net.minecraft.core.net.command.Commands;
 import net.minecraft.server.MinecraftServer;
@@ -18,7 +19,7 @@ public class Mixin_Commands {
     private static void postInitServerCommands(MinecraftServer server, CallbackInfo ci) {
         MinecraftPingHandler pingHandler = new MinecraftPingHandler(server);
         Commands.commands.add(pingHandler);
-        //MinecraftDConnect connectionHandler = new MinecraftDConnect(server);
-        //Commands.commands.add(connectionHandler);
+        MinecraftDConnect connectionHandler = new MinecraftDConnect(server);
+        Commands.commands.add(connectionHandler);
     }
 }

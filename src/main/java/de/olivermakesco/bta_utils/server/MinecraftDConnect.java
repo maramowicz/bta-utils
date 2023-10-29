@@ -1,11 +1,10 @@
 package de.olivermakesco.bta_utils.server;
 
-import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
 
+import de.olivermakesco.bta_utils.core.DataManager;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.requests.RestAction;
 import net.minecraft.core.net.command.CommandHandler;
@@ -21,26 +20,25 @@ public class MinecraftDConnect extends ServerCommand {
 
     @Override
     public boolean execute(CommandHandler handler, CommandSender sender, String[] args) {
+        String username = sender.getPlayer().username;
+        if (username.contains(".")||username.contains(";")||username.contains("/")||username.contains("\\")) {
+            sender.sendMessage("Did you know your username is Illegal? Yes, we are not wrong, the only characters you can use in Minecraft username are: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ so first change your username to normal, then try again.");
+        }
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
             try {
                 RestAction<User> action = DiscordClient.jda.retrieveUserById(args[0]);
                 action.queue(user -> {
                     try {
-                        // try {
-                        //     sender.getPlayer().getEntityData().set("BTAUtilsConnectCodeExpireDate".hashCode(), (int)(System.currentTimeMillis() / 1000L + 180));
-                        // } catch (NullPointerException e) {
-                        //     sender.getPlayer().getEntityData().define("BTAUtilsConnectCodeExpireDate".hashCode(), (int)(System.currentTimeMillis() / 1000L + 180));
-                        // } 
-                        // System.out.println(1);
-                        // try {
-                        //     sender.getPlayer().getEntityData().set((int)("BTAUtilsConnectCode".hashCode()), getRandomHexString(32));
-                        // } catch (NullPointerException e) {
-                        //     sender.getPlayer().getEntityData().define((int)("BTAUtilsConnectCode".hashCode()), getRandomHexString(32));
-                        // }
-                        System.out.println(2);
-                        sender.sendMessage("Connecting your Minecraft account with user " + user.getName() + ". Your code is " + sender.getPlayer().getEntityData().getInt("BTAUtilsConnectCode".hashCode()) + " and expires in next 3 minutes!");
-                        System.out.println(3);
+                        String file = "perPlayer/" + sender.getPlayer().username + "/data";
+                        DataManager.initDataFile(file);
+                        DataManager.setString(file, "discordConnectionKeyExpireDate", Long.toString(System.currentTimeMillis()/1000L+180));
+                        DataManager.setString(file, "discordConnectionKey", getRandomHexString(32));
+                        DataManager.setString(file, "username", sender.getPlayer().username);
+                        DataManager.setString(file, "discordUserID", args[0]);
+                        DataManager.setString(file, "phase", Integer.toString(1));
+                        DataManager.setString(file, "connected", "false");
+                        sender.sendMessage("Connecting your Minecraft account with user " + user.getName() + ". Your code is " + DataManager.getString(file, "discordConnectionKey") + " and expires in next 3 minutes!");
                     } catch (Exception e) {
                         sender.sendMessage("Error! Server... handled it! Crash? Not today ;)");
                         System.out.println(e);
