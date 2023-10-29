@@ -41,6 +41,9 @@ repositories {
 	maven {
         url 'https://jitpack.io'
     }
+	maven {
+        url 'https://jogamp.org/deployment/maven/'
+    }
 	ivy {
 		url = "https://github.com/Better-than-Adventure"
 		patternLayout {
@@ -116,10 +119,6 @@ dependencies {
 	implementation("org.apache.logging.log4j:log4j-1.2-api:${log4jVersion}")
 
     implementation group: 'com.github.micycle1', name: 'processing-core-4', version: 'latest.integration'
-	// https://mvnrepository.com/artifact/org.jogamp.jogl/jogl-all-main
-	implementation group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.5.0-rc-20230523'
-	// https://mvnrepository.com/artifact/org.jogamp.gluegen/gluegen-rt
-	implementation group: 'org.jogamp.gluegen', name: 'gluegen-rt', version: '2.5.0-rc-20230523'
 }
 
 java {
