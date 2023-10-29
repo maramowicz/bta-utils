@@ -8,7 +8,8 @@
     "server.Mixin_EntityPlayerMP",
     "server.Mixin_NetLoginHandler",
     "server.Mixin_NetServerHandler",
-    "server.Mixin_MinecraftServer"
+    "server.Mixin_MinecraftServer",
+    "server.Mixin_Commands"
   ],
   "client": [
     "client.Mixin_ControllerInput",

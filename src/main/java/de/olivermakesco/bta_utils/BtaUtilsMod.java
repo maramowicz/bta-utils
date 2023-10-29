@@ -5,6 +5,7 @@ import de.olivermakesco.bta_utils.server.DiscordChatRelay;
 import de.olivermakesco.bta_utils.server.DiscordClient;
 import de.olivermakesco.bta_utils.server.DiscordSlashHandler;
 import net.fabricmc.api.ModInitializer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
