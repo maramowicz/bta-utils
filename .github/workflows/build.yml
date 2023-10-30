@@ -28,8 +28,8 @@ jobs:
         run: |
           for file in build/libs/*; do
             artifact_name=$(basename "${file}")
-            echo "::set-env name=ARTIFACT_NAME::${artifact_name}"
-            echo "::set-env name=ARTIFACT_PATH::${file}"
+            echo "ARTIFACT_NAME=${artifact_name}" >> $GITHUB_ENV
+            echo "ARTIFACT_PATH=${file}" >> $GITHUB_ENV
           done
       - name: Upload Test Artifact
         uses: actions/upload-artifact@v2
