@@ -23,6 +23,8 @@ public class BtaUtilsConfig {
     public static String discord_status = "Server running!";
     public static String discord_message_started = "**Server Started**";
     public static String discord_message_stopped = "**Server Stopped**";
+    public static int as_wait_delay = 0;
+    public static int as_shutdown_delay = 0;
 
     public static void load() {
         File file = getFilePath();
@@ -94,6 +96,13 @@ public class BtaUtilsConfig {
 
             object.add("discord", discord);
         }
+        /* auto shutdown = */ {
+            JsonObject auto_shutdown = get(object, "auto_shutdown", new JsonObject());
+            as_wait_delay = get(auto_shutdown, "wait_delay_seconds_0_to_off", as_wait_delay);
+            as_shutdown_delay = get(auto_shutdown, "shutdown_delay_minutes", as_shutdown_delay);
+        
+            object.add("auto_shutdown", auto_shutdown);
+        }
     }
 
     public static File getFilePath() {
@@ -105,6 +114,12 @@ public class BtaUtilsConfig {
         BtaUtilsMod.info("disable_trample = " + disableTrample);
         BtaUtilsMod.info("discord.enable = " + discord_enable);
         BtaUtilsMod.info("discord.replace_users_messages = " + discord_replace_messages);
+        if (as_wait_delay == 0) {
+            BtaUtilsMod.info("auto_shutdown=off");
+        } else {
+            BtaUtilsMod.info("auto_shutdown.wait_delay = " + as_wait_delay);
+            BtaUtilsMod.info("auto_shutdown.shutdown_delay = " + as_shutdown_delay);
+        }
     }
 
     static {
