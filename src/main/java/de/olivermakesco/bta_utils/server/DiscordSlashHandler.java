@@ -1,6 +1,8 @@
 package de.olivermakesco.bta_utils.server;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import de.olivermakesco.bta_utils.core.DataManager;
 import net.dv8tion.jda.api.JDA;
@@ -14,8 +16,9 @@ public class DiscordSlashHandler extends ListenerAdapter {
         jda.updateCommands()
                 .addCommands(Commands.slash("ping", "Gives the current ping"))
                 .addCommands(Commands
-                        .slash("dconnect", "Allow you to connect account on Minecraft server with account on Discord")
+                        .slash("mdpair", "Allow you to connect account on Minecraft server with account on Discord")
                         .addOption(OptionType.STRING, "key", "connection key", true, false))
+                .addCommands(Commands.slash("mdunpair", "unpair discord and minecraft accounts"))
                 .queue();
     }
 
@@ -23,7 +26,7 @@ public class DiscordSlashHandler extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         if (event.getName().equals("ping")) {
             event.reply("Pong! :D").queue();
-        } else if (event.getName().equals("dconnect")) {
+        } else if (event.getName().equals("mdpair")) {
             String username = event.getUser().getName();
             if (username.contains(".") || username.contains(";") || username.contains("/") || username.contains("\\")) {
                 event.reply(
@@ -79,6 +82,25 @@ public class DiscordSlashHandler extends ListenerAdapter {
                 event.reply("Confirming the confirmation of your unconfirmed confirmation.").queue();
             }
             event.reply("Cannot find any request with that ID, did you rewrted your ID correctly?").queue();
+        } else if (event.getName().equals("mdunpair")) {
+            String id = event.getUser().getId();
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.submit(() -> {
+                try {
+                    File[] files = DataManager.findFilesWithNameRecursively("perPlayer", "data");
+                    for (int i = 0; i < files.length; i++) {
+                        if (id.equals(DataManager.getString(files[i], "discordUserID"))) {
+                            DataManager.setString(files[i], "connected", "false");
+                            event.reply("Accounts unpaired!").queue();
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    event.reply("Error while initiating the connection.").queue();
+                }
+                return;
+            });
+            return;
         }
     }
 }

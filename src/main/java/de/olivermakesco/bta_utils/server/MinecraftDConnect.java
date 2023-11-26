@@ -15,7 +15,7 @@ import net.minecraft.server.MinecraftServer;
 public class MinecraftDConnect extends ServerCommand {
 
     public MinecraftDConnect(MinecraftServer server) {
-        super(server, "dconnect", new String[0]);
+        super(server, "mdpair", new String[0]);
     }
 
     @Override
@@ -23,6 +23,7 @@ public class MinecraftDConnect extends ServerCommand {
         String username = sender.getPlayer().username;
         if (username.contains(".")||username.contains(";")||username.contains("/")||username.contains("\\")) {
             sender.sendMessage("Did you know your username is Illegal? Yes, we are not wrong, the only characters you can use in Minecraft username are: abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_ so first change your username to normal, then try again.");
+            return false;
         }
         ExecutorService executor = Executors.newSingleThreadExecutor();
         executor.submit(() -> {
@@ -45,7 +46,7 @@ public class MinecraftDConnect extends ServerCommand {
                     }
                 }, throwable -> sender.sendMessage("Unknown user, did you paste your Discord UserID?"));
             } catch (Exception e) {
-                sender.sendMessage("Error while initiating the connection.");
+                sender.sendMessage("Usage: /mdpair DiscordID");
             }
         });
         return true;
@@ -58,7 +59,7 @@ public class MinecraftDConnect extends ServerCommand {
 
     @Override
     public void sendCommandSyntax(CommandHandler handler, CommandSender sender) {
-        sender.sendMessage("/dconnect DiscordUserID");
+        sender.sendMessage("/mdpair DiscordUserID");
     }
 
     private String getRandomHexString(int numchars){
