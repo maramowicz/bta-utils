@@ -14,8 +14,36 @@ public class MinecraftAdminVanish extends ServerCommand {
 
     @Override
     public boolean execute(CommandHandler handler, CommandSender sender, String[] args) {
-        MinecraftServer.getInstance().entityTracker[sender.getPlayer().dimension].untrackEntity(sender.getPlayer());
-        sender.sendMessage("Vanished!");
+        if (args[0].equals("on")) {
+            MinecraftServer.getInstance().entityTracker[sender.getPlayer().dimension].untrackEntity(sender.getPlayer());
+            sender.getPlayer().gamemode.areMobsHostile = false;
+            sender.getPlayer().gamemode.isPlayerInvulnerable = true;
+            sender.sendMessage("Vanished!");
+            return true;
+        } else if (args[0].equals("off")) {
+            MinecraftServer.getInstance().entityTracker[sender.getPlayer().dimension].trackEntity(sender.getPlayer());
+            sender.getPlayer().gamemode.areMobsHostile = true;
+            sender.getPlayer().gamemode.isPlayerInvulnerable = false;
+            sender.sendMessage("UnVanished!");
+            return true;
+        } else if (args[0].equals("status")) {
+            if (sender.getPlayer().gamemode.areMobsHostile || !sender.getPlayer().gamemode.isPlayerInvulnerable)
+                sender.sendMessage("You not vanised");
+            else
+                sender.sendMessage("You vanised");
+            return true;
+        }
+        if (sender.getPlayer().gamemode.areMobsHostile || !sender.getPlayer().gamemode.isPlayerInvulnerable) {
+            MinecraftServer.getInstance().entityTracker[sender.getPlayer().dimension].untrackEntity(sender.getPlayer());
+            sender.getPlayer().gamemode.areMobsHostile = false;
+            sender.getPlayer().gamemode.isPlayerInvulnerable = true;
+            sender.sendMessage("Vanished!");
+        } else {
+            MinecraftServer.getInstance().entityTracker[sender.getPlayer().dimension].trackEntity(sender.getPlayer());
+            sender.getPlayer().gamemode.areMobsHostile = true;
+            sender.getPlayer().gamemode.isPlayerInvulnerable = false;
+            sender.sendMessage("UnVanished!");
+        }
         return true;
     }
 
