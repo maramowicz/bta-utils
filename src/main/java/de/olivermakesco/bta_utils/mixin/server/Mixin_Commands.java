@@ -1,5 +1,6 @@
 package de.olivermakesco.bta_utils.mixin.server;
 
+import de.olivermakesco.bta_utils.server.MinecraftAdminVanish;
 import de.olivermakesco.bta_utils.server.MinecraftDConnect;
 import de.olivermakesco.bta_utils.server.MinecraftDDisconnect;
 import de.olivermakesco.bta_utils.server.MinecraftPingHandler;
@@ -24,5 +25,7 @@ public class Mixin_Commands {
         Commands.commands.add(connect);
         MinecraftDDisconnect disconnect = new MinecraftDDisconnect(server);
         Commands.commands.add(disconnect);
+        MinecraftAdminVanish vanish = new MinecraftAdminVanish(server);
+        Commands.commands.add(vanish);
     }
 }
